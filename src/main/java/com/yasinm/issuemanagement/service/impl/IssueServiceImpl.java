@@ -2,6 +2,8 @@ package com.yasinm.issuemanagement.service.impl;
 
 import com.yasinm.issuemanagement.dto.IssueDto;
 import com.yasinm.issuemanagement.entity.Issue;
+import com.yasinm.issuemanagement.entity.Project;
+import com.yasinm.issuemanagement.entity.User;
 import com.yasinm.issuemanagement.repository.IssueRepository;
 import com.yasinm.issuemanagement.service.IssueService;
 import com.yasinm.issuemanagement.util.TPage;
@@ -33,7 +35,7 @@ public class IssueServiceImpl implements IssueService {
 
     @Override
     public IssueDto getById(Long id) {
-        return null;
+        return modelMapper.map(issueRepository.getOne(id), IssueDto.class);
     }
 
     @Override
@@ -46,9 +48,40 @@ public class IssueServiceImpl implements IssueService {
     }
 
     @Override
-    public Boolean delete(IssueDto issue) {
-        //  issueRepository.delete(issue);
-        return Boolean.TRUE;
+    public IssueDto update(Long id, IssueDto issueDto) {
+        Issue issue = issueRepository.getOne(id);
+        if(issue == null){
+            throw new IllegalArgumentException("Issue didn't find!");
+        }
+        if(issue.getAssignee() != null){
+            issue.setAssignee(modelMapper.map(issueDto.getAssignee(), User.class));
+        }
+        else{
+            issue.setAssignee(null);
+        }
+
+        issue.setDate(issueDto.getDate());
+        issue.setDescription(issueDto.getDescription());
+        issue.setDetails(issueDto.getDetails());
+        issue.setIssueStatus(issueDto.getIssueStatus());
+        if(issue.getProject() != null){
+            issue.setProject(modelMapper.map(issueDto.getProject(), Project.class));
+        }
+        else{
+            issue.setProject(null);
+        }
+        issueRepository.save(issue);
+        return modelMapper.map(issue,IssueDto.class);
+    }
+
+    @Override
+    public Boolean deleteById(Long id) {
+        if (issueRepository.getOne(id) != null) {
+            issueRepository.deleteById(id);
+            return true;
+        } else {
+            return false;
+        }
 
     }
 }

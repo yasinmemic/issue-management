@@ -1,8 +1,7 @@
 package com.yasinm.issuemanagement.service;
 
 import com.yasinm.issuemanagement.entity.IssueHistory;
-import com.yasinm.issuemanagement.entity.User;
-import org.springframework.data.domain.Page;
+import com.yasinm.issuemanagement.util.TPage;
 import org.springframework.data.domain.Pageable;
 
 public interface IssueHistoryService {
@@ -11,7 +10,7 @@ public interface IssueHistoryService {
 
     IssueHistory getById(Long id);
 
-    Page<IssueHistory> getAllPageable(Pageable pageable);
+    TPage<IssueHistory> getAllPageable(Pageable pageable);
 
-    Boolean delete (IssueHistory issueHistory);
+    Boolean delete(IssueHistory issueHistory);
 }

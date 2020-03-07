@@ -1,39 +1,49 @@
 package com.yasinm.issuemanagement.service.impl;
 
+import com.yasinm.issuemanagement.dto.UserDto;
 import com.yasinm.issuemanagement.entity.User;
 import com.yasinm.issuemanagement.repository.UserRepository;
 import com.yasinm.issuemanagement.service.UserService;
+import com.yasinm.issuemanagement.util.TPage;
 import lombok.RequiredArgsConstructor;
+import org.modelmapper.ModelMapper;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+
+import java.util.Arrays;
 
 @Service
 @RequiredArgsConstructor
 public class UserServiceImpl implements UserService {
 
     private final UserRepository userRepository;
+    private final ModelMapper modelMapper;
 
     @Override
-    public User save(User user) {
-        if(user.getUsername() == null){
-            throw new IllegalArgumentException("Username can't be null!");
-        }
-        return userRepository.save(user);
+    public UserDto save(UserDto user) {
+      User userEntity = modelMapper.map(user,User.class);
+      userEntity = userRepository.save(userEntity);
+      user.setId(userEntity.getId());
+      return user;
     }
 
     @Override
-    public User getById(Long id) {
-        return userRepository.getOne(id);
+    public UserDto getById(Long id) {
+        return modelMapper.map(userRepository.findById(id),UserDto.class);
     }
 
     @Override
-    public Page<User> getAllPageable(Pageable pageable) {
-        return userRepository.findAll(pageable);
+    public TPage<UserDto> getAllPageable(Pageable pageable) {
+        Page<User> userList = userRepository.findAll(pageable);
+        UserDto[] users = modelMapper.map(userList.getContent(), UserDto[].class);
+        TPage<UserDto> userDtoTPage = new TPage<>();
+        userDtoTPage.setStat(userList, Arrays.asList(users));
+        return userDtoTPage;
     }
 
     @Override
-    public User getByUsername(String username) {
-        return userRepository.getByUsername(username)  ;
+    public UserDto getByUsername(String username) {
+        return modelMapper.map(userRepository.getByUsername(username), UserDto.class);
     }
 }

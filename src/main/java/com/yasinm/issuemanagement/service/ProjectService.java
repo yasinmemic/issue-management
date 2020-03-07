@@ -1,24 +1,24 @@
 package com.yasinm.issuemanagement.service;
 
-import com.yasinm.issuemanagement.entity.Project;
-import com.yasinm.issuemanagement.entity.User;
-import org.springframework.data.domain.Page;
+import com.yasinm.issuemanagement.dto.ProjectDto;
+import com.yasinm.issuemanagement.util.TPage;
 import org.springframework.data.domain.Pageable;
 
 import java.util.List;
 
 public interface ProjectService {
 
-    Project save(Project project);
+    ProjectDto save(ProjectDto project);
 
-    Project getById(Long id);
+    ProjectDto getById(Long id);
 
-    List<Project> getByProjectCodeContains(String projectCode);
+    List<ProjectDto> getByProjectCodeContains(String projectCode);
 
-    List<Project> getByProjectCode(String projectCode);
+    ProjectDto getByProjectCode(String projectCode);
 
-    Page<Project> getAllPageable(Pageable pageable);
+    TPage<ProjectDto> getAllPageable(Pageable pageable);
 
-    Boolean delete(Project project);
+    Boolean deleteById(Long projectId);
 
+    ProjectDto update(Long id, ProjectDto projectDto);
 }

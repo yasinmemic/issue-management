@@ -18,7 +18,7 @@ import javax.validation.Valid;
 @RequiredArgsConstructor
 @RestController
 @RequestMapping(ApiPaths.ProjectCtrl.CTRL)
-@Api(value = ApiPaths.IssueCtrl.CTRL, description = "Project APIs")
+@Api(value = ApiPaths.ProjectCtrl.CTRL, description = "Project APIs")
 public class ProjectController {
 
     private final ProjectService projectService;

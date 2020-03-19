@@ -21,4 +21,6 @@ public interface ProjectService {
     Boolean deleteById(Long projectId);
 
     ProjectDto update(Long id, ProjectDto projectDto);
+
+    List<ProjectDto> getAll();
 }

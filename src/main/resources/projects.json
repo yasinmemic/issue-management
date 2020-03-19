@@ -1,17 +1,77 @@
 [
   {
     "_class": "com.yasinm.issuemanagement.entity.Project",
-    "projectCode": "IM",
-    "projectName": "Issue Management Project"
+    "projectCode": "IM001",
+    "projectName": "Issue Management Test Record 001"
   },
   {
     "_class": "com.yasinm.issuemanagement.entity.Project",
-    "projectCode": "ERP-S",
-    "projectName": "ERP Project for Sales"
+    "projectCode": "ERP-S001",
+    "projectName": "ERP Project for Sales 001"
   },
   {
     "_class": "com.yasinm.issuemanagement.entity.Project",
-    "projectCode": "CRM-S",
-    "projectName": "CRM Project for Sales"
+    "projectCode": "CRM-S001",
+    "projectName": "CRM Project for Sales 001"
+  },
+  {
+    "_class": "com.yasinm.issuemanagement.entity.Project",
+    "projectCode": "IM002",
+    "projectName": "Issue Management Test Record 002"
+  },
+  {
+    "_class": "com.yasinm.issuemanagement.entity.Project",
+    "projectCode": "ERP-S002",
+    "projectName": "ERP Project for Sales 002"
+  },
+  {
+    "_class": "com.yasinm.issuemanagement.entity.Project",
+    "projectCode": "CRM-S002",
+    "projectName": "CRM Project for Sales 002"
+  },
+  {
+    "_class": "com.yasinm.issuemanagement.entity.Project",
+    "projectCode": "IM003",
+    "projectName": "Issue Management Test Record 003"
+  },
+  {
+    "_class": "com.yasinm.issuemanagement.entity.Project",
+    "projectCode": "ERP-S003",
+    "projectName": "ERP Project for Sales 003"
+  },
+  {
+    "_class": "com.yasinm.issuemanagement.entity.Project",
+    "projectCode": "CRM-S003",
+    "projectName": "CRM Project for Sales 003"
+  },
+  {
+    "_class": "com.yasinm.issuemanagement.entity.Project",
+    "projectCode": "IM004",
+    "projectName": "Issue Management Test Record 004"
+  },
+  {
+    "_class": "com.yasinm.issuemanagement.entity.Project",
+    "projectCode": "ERP-S004",
+    "projectName": "ERP Project for Sales 004"
+  },
+  {
+    "_class": "com.yasinm.issuemanagement.entity.Project",
+    "projectCode": "CRM-S004",
+    "projectName": "CRM Project for Sales 004"
+  },
+  {
+    "_class": "com.yasinm.issuemanagement.entity.Project",
+    "projectCode": "IM005",
+    "projectName": "Issue Management Test Record 005"
+  },
+  {
+    "_class": "com.yasinm.issuemanagement.entity.Project",
+    "projectCode": "ERP-S005",
+    "projectName": "ERP Project for Sales 005"
+  },
+  {
+    "_class": "com.yasinm.issuemanagement.entity.Project",
+    "projectCode": "CRM-S005",
+    "projectName": "CRM Project for Sales 005"
   }
 ]

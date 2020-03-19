@@ -11,8 +11,6 @@ export class HeaderComponent implements OnInit {
   collapseClass:string = 'collapsed';
   isCollapsed = false;
 
-  activeUser = {};
-
   constructor(public router: Router) {
     this.router.events.subscribe(val => {
       if (
@@ -26,8 +24,6 @@ export class HeaderComponent implements OnInit {
   }
 
   ngOnInit() {
-
-    this.activeUser = JSON.parse(localStorage.getItem('currentUser'));
   }
 
   isToggled(): boolean {
@@ -41,6 +37,4 @@ export class HeaderComponent implements OnInit {
     const cdom: any = document.querySelector('#main-container');
     (cdom)?cdom.classList.toggle(this.collapseClass):'';
   }
-
-
 }

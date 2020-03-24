@@ -12,15 +12,13 @@ public interface ProjectService {
 
     ProjectDto getById(Long id);
 
-    List<ProjectDto> getByProjectCodeContains(String projectCode);
-
     ProjectDto getByProjectCode(String projectCode);
+
+    List<ProjectDto> getByProjectCodeContains(String projectCode);
 
     TPage<ProjectDto> getAllPageable(Pageable pageable);
 
-    Boolean deleteById(Long projectId);
+    Boolean delete(ProjectDto project);
 
-    ProjectDto update(Long id, ProjectDto projectDto);
-
-    List<ProjectDto> getAll();
+    ProjectDto update(Long id, ProjectDto project);
 }

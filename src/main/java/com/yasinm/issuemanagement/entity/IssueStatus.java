@@ -7,5 +7,4 @@ public enum IssueStatus {
     IN_REVIEW,
     IN_PROGRESS,
     RESOLVED
-
 }

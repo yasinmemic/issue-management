@@ -1,42 +1,45 @@
 package com.yasinm.issuemanagement.entity;
 
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import javax.persistence.*;
 import java.util.Date;
 
-@Data
-@AllArgsConstructor
-@NoArgsConstructor
-@ToString
-@EqualsAndHashCode
 @Entity
-@Table(name = "ISSUE")
+@Table(name = "issue")
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
 public class Issue extends BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    @Column(name = "DESCRIPTION", length = 400)
+    @Column(name = "description", length = 1000)
     private String description;
 
-    @Column(name = "DETAILS", length = 4000)
+    @Column(name = "details", length = 4000)
     private String details;
 
-    @Column(name = "DATE")
+    @Column(name = "date")
     @Temporal(TemporalType.TIMESTAMP)
     private Date date;
 
-    @Column(name = "ISSUE_STATUS")
+    @Column(name = "issue_status")
     @Enumerated(EnumType.STRING)
     private IssueStatus issueStatus;
 
-    @JoinColumn(name = "ASSIGNEE_USER_ID")
-    @ManyToOne(optional = true, fetch = FetchType.LAZY) //optional, bu issue'yi bir kullanıcıya atamasan da olur demek...
+    @JoinColumn(name = "assignee_user_id")
+    @ManyToOne(optional = true, fetch = FetchType.LAZY)
     private User assignee;
 
-    @JoinColumn(name = "PROJECT_ID")
+    @JoinColumn(name = "project_id")
     @ManyToOne(optional = true, fetch = FetchType.LAZY)
     private Project project;
+
 }

@@ -1,38 +1,38 @@
 package com.yasinm.issuemanagement.entity;
 
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import javax.persistence.*;
 import java.util.List;
 
-@Data
-@AllArgsConstructor
-@NoArgsConstructor
-@ToString
-@EqualsAndHashCode
 @Entity
-@Table(name = "USERS")
+@Table(name = "users", indexes = {@Index(name = "idx_username", columnList = "uname")})
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
 public class User extends BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    @Column(name = "UNAME", length = 100, unique = true)
+    @Column(name = "uname", length = 100, unique = true)
     private String username;
 
-    @Column(name = "PWD", length = 200)
+    @Column(name = "pwd", length = 200)
     private String password;
 
-    @Column(name = "NAME_SURNAME", length = 200)
+    @Column(name = "name_surname", length = 200)
     private String nameSurname;
 
-    @Column(name = "EMAIL", length = 100)
+    @Column(name = "email", length = 100)
     private String email;
 
-    @JoinColumn(name = "ASSIGNEE_USER_ID")
+    @JoinColumn(name = "assignee_user_id")
     @OneToMany(fetch = FetchType.LAZY)
     private List<Issue> issues;
-
-
 }

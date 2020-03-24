@@ -13,9 +13,6 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
 import java.time.LocalDate;
 
-/**
- * Created By Yasin Memic on Mar, 2020
- */
 @Configuration
 @EnableSwagger2
 public class SwaggerConfig {
@@ -32,13 +29,11 @@ public class SwaggerConfig {
         return new Docket(DocumentationType.SWAGGER_2)
                 .apiInfo(apiInfo())
                 .select().paths(PathSelectors.any())
-                .apis(RequestHandlerSelectors.basePackage("com.yasinm.issuemanagement"))
+                .apis(RequestHandlerSelectors.basePackage("com.temelt"))
                 .build()
                 .pathMapping("/")
                 .useDefaultResponseMessages(false)
                 .directModelSubstitute(LocalDate.class, String.class)
                 .genericModelSubstitutes(ResponseEntity.class);
     }
-
-
 }

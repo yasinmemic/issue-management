@@ -3,36 +3,30 @@ package com.yasinm.issuemanagement.dto;
 import com.yasinm.issuemanagement.entity.IssueStatus;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.util.Date;
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@ToString
-@EqualsAndHashCode
 @ApiModel(value = "Issue Data Transfer Object")
 public class IssueDto {
-
-    @ApiModelProperty(value = "Issue ID", readOnly = true)
+    @ApiModelProperty(required = true,value = "ID")
     private Long id;
-
-    @ApiModelProperty(value = "Issue Description")
+    @ApiModelProperty(required = true,value = "Description")
     private String description;
-
-    @ApiModelProperty(value = "Issue Details")
+    @ApiModelProperty(required = true,value = "Issue Details")
     private String details;
-
-    @ApiModelProperty(value = "Issue Date")
+    @ApiModelProperty(required = true,value = "Date")
     private Date date;
-
-    @ApiModelProperty(value = "Issue Status")
+    @ApiModelProperty(required = true,value = "Issue Status")
     private IssueStatus issueStatus;
-
-    @ApiModelProperty(value = "Issue Assignee")
+    @ApiModelProperty(required = true,value = "Assignee")
     private UserDto assignee;
-
-    @ApiModelProperty(value = "Issue Project")
+    @ApiModelProperty(required = true,value = "Project")
     private ProjectDto project;
+    private Long projectId;
 }

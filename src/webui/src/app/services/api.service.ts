@@ -1,35 +1,29 @@
-import {Injectable} from '@angular/core';
-import {HttpClient, HttpHeaders, HttpParams} from "@angular/common/http";
-import {catchError} from 'rxjs/operators/catchError';
-import {Observable} from 'rxjs/Observable';
-import {environment} from '../../environments/environment';
+import { Injectable } from '@angular/core';
+import { HttpHeaders, HttpClient, HttpParams, } from '@angular/common/http';
+import { Observable } from 'rxjs/Observable';
 
-@Injectable({
-  providedIn: 'root'
-})
+import { ErrorObservable } from 'rxjs/observable/ErrorObservable';
+import { catchError } from 'rxjs/operators/catchError';
+import {environment} from "../../environments/environment";
+
+@Injectable()
 export class ApiService {
 
   constructor(private http: HttpClient) {
-
   }
+
   private httpOptions = {
-    headers: new HttpHeaders(
-      {
-        'Content-Type':'application/json'
-      }
-    )
+    headers: new HttpHeaders({
+      'Content-Type': 'application/json'
+    })
   };
 
   get(path: string, params: HttpParams = new HttpParams()): Observable<any> {
     return this.http.get(environment.API_BASE_PATH + path, {params}).pipe(catchError(this.formatError));
   }
 
-  private formatError(error: any) {
-    return null; /*Observable.of(error.error);*/
-  }
-
   post(path: string, params: HttpParams = new HttpParams()): Observable<any> {
-    return this.http.post(environment.API_BASE_PATH + path,  JSON.stringify(params), this.httpOptions).pipe(catchError(this.formatError));
+    return this.http.post(environment.API_BASE_PATH + path, JSON.stringify(params), this.httpOptions).pipe(catchError(this.formatError));
   }
 
   put(path: string, params: HttpParams = new HttpParams()): Observable<any> {
@@ -40,4 +34,7 @@ export class ApiService {
     return this.http.delete(environment.API_BASE_PATH + path, {params}).pipe(catchError(this.formatError));
   }
 
+  private formatError(error: any) {
+    return Observable.of(environment.API_BASE_PATH + error.error);
+  }
 }

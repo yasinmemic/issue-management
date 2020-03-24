@@ -1,8 +1,7 @@
 package com.yasinm.issuemanagement.entity;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.Getter;
+import lombok.Setter;
 
 import javax.persistence.Column;
 import javax.persistence.MappedSuperclass;
@@ -11,27 +10,26 @@ import javax.persistence.TemporalType;
 import java.io.Serializable;
 import java.util.Date;
 
-@Data
-@AllArgsConstructor
-@NoArgsConstructor
-@MappedSuperclass //otomatikmen diger class'larda extend edilebilir hale geliyor.
+
+@Getter
+@Setter
+@MappedSuperclass
 public abstract class BaseEntity implements Serializable {
 
-    @Column(name = "CREATED_AT")
     @Temporal(TemporalType.TIMESTAMP)
+    @Column(name = "created_at")
     private Date createdAt;
 
-    @Column(name = "CREATED_BY", length = 100)
+    @Column(name = "created_by", length = 50)
     private String createdBy;
 
-    @Column(name = "UPDATED_AT")
     @Temporal(TemporalType.TIMESTAMP)
+    @Column(name = "updated_at")
     private Date updatedAt;
 
-    @Column(name = "UPDATED_BY", length = 100)
+    @Column(name = "updated_by", length = 50)
     private String updatedBy;
 
-    @Column(name = "STATUS")
+    @Column(name = "status")
     private Boolean status;
-
 }

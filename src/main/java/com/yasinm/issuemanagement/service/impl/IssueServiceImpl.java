@@ -1,87 +1,113 @@
 package com.yasinm.issuemanagement.service.impl;
 
+import com.yasinm.issuemanagement.dto.IssueDetailDto;
 import com.yasinm.issuemanagement.dto.IssueDto;
+import com.yasinm.issuemanagement.dto.IssueHistoryDto;
+import com.yasinm.issuemanagement.dto.IssueUpdateDto;
 import com.yasinm.issuemanagement.entity.Issue;
-import com.yasinm.issuemanagement.entity.Project;
+import com.yasinm.issuemanagement.entity.IssueStatus;
 import com.yasinm.issuemanagement.entity.User;
 import com.yasinm.issuemanagement.repository.IssueRepository;
+import com.yasinm.issuemanagement.repository.ProjectRepository;
+import com.yasinm.issuemanagement.repository.UserRepository;
+import com.yasinm.issuemanagement.service.IssueHistoryService;
 import com.yasinm.issuemanagement.service.IssueService;
 import com.yasinm.issuemanagement.util.TPage;
-import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Arrays;
+import java.util.Date;
+import java.util.List;
 
 @Service
-@RequiredArgsConstructor
 public class IssueServiceImpl implements IssueService {
 
     private final IssueRepository issueRepository;
+    private final UserRepository userRepository;
+    private final ProjectRepository projectRepository;
+    private final IssueHistoryService issueHistoryService;
     private final ModelMapper modelMapper;
+
+    public IssueServiceImpl(IssueRepository issueRepository,ProjectRepository projectRepository, UserRepository userRepository, IssueHistoryService issueHistoryService, ModelMapper modelMapper) {
+        this.issueRepository = issueRepository;
+        this.modelMapper = modelMapper;
+        this.issueHistoryService = issueHistoryService;
+        this.userRepository =userRepository;
+        this.projectRepository=projectRepository;
+    }
 
     @Override
     public IssueDto save(IssueDto issue) {
-        if (issue.getDate() == null) {
-            throw new IllegalArgumentException("Issue date cannot be null!");
-        }
-        Issue issueDb = modelMapper.map(issue, Issue.class);
-        issueDb = issueRepository.save(issueDb);
-        IssueDto issueDto = modelMapper.map(issueDb, IssueDto.class);
-        return issueDto;
+        // Bussiness Logic
+        issue.setDate(new Date());
+        issue.setIssueStatus(IssueStatus.OPEN);
+
+
+        Issue issueEntity = modelMapper.map(issue, Issue.class);
+
+        issueEntity.setProject(projectRepository.getOne(issue.getProjectId()));
+        issueEntity = issueRepository.save(issueEntity);
+
+        issue.setId(issueEntity.getId());
+        return issue;
+    }
+
+    @Transactional
+    public IssueDetailDto update(Long id, IssueUpdateDto issue) {
+        Issue issueDb = issueRepository.getOne(id);
+        User user = userRepository.getOne(issue.getAssignee_id());
+        issueHistoryService.addHistory(id,issueDb);
+
+        issueDb.setAssignee(user);
+        issueDb.setDate(issue.getDate());
+        issueDb.setDescription(issue.getDescription());
+        issueDb.setDetails(issue.getDetails());
+        issueDb.setIssueStatus(issue.getIssueStatus());
+        issueDb.setProject(projectRepository.getOne(issue.getProject_id()));
+        issueRepository.save(issueDb);
+        return getByIdWithDetails(id);
     }
 
     @Override
     public IssueDto getById(Long id) {
-        return modelMapper.map(issueRepository.getOne(id), IssueDto.class);
+        Issue issue = issueRepository.getOne(id);
+        return modelMapper.map(issue, IssueDto.class);
+    }
+
+    public IssueDetailDto getByIdWithDetails(Long id) {
+        Issue issue = issueRepository.getOne(id);
+        IssueDetailDto detailDto = modelMapper.map(issue, IssueDetailDto.class);
+        List<IssueHistoryDto> issueHistoryDtos = issueHistoryService.getByIssueId(issue.getId());
+        detailDto.setIssueHistories(issueHistoryDtos);
+        return detailDto;
     }
 
     @Override
     public TPage<IssueDto> getAllPageable(Pageable pageable) {
-        Page<Issue> datas = issueRepository.findAll(pageable);
-        IssueDto[] issueDtos = modelMapper.map(datas.getContent(),IssueDto[].class);
-        TPage<IssueDto> page = new TPage<>();
-        page.setStat(datas,Arrays.asList(issueDtos));
-        return page;
+        Page<Issue> data = issueRepository.findAll(pageable);
+        TPage<IssueDto> respnose = new TPage<IssueDto>();
+        respnose.setStat(data, Arrays.asList(modelMapper.map(data.getContent(), IssueDto[].class)));
+        return respnose;
+    }
+
+    public List<IssueDto> getAll() {
+        List<Issue> data = issueRepository.findAll();
+        return Arrays.asList(modelMapper.map(data, IssueDto[].class));
     }
 
     @Override
-    public IssueDto update(Long id, IssueDto issueDto) {
-        Issue issue = issueRepository.getOne(id);
-        if(issue == null){
-            throw new IllegalArgumentException("Issue didn't find!");
-        }
-        if(issue.getAssignee() != null){
-            issue.setAssignee(modelMapper.map(issueDto.getAssignee(), User.class));
-        }
-        else{
-            issue.setAssignee(null);
-        }
-
-        issue.setDate(issueDto.getDate());
-        issue.setDescription(issueDto.getDescription());
-        issue.setDetails(issueDto.getDetails());
-        issue.setIssueStatus(issueDto.getIssueStatus());
-        if(issue.getProject() != null){
-            issue.setProject(modelMapper.map(issueDto.getProject(), Project.class));
-        }
-        else{
-            issue.setProject(null);
-        }
-        issueRepository.save(issue);
-        return modelMapper.map(issue,IssueDto.class);
+    public Boolean delete(Long issueId) {
+        issueRepository.deleteById(issueId);
+        return true;
     }
 
     @Override
-    public Boolean deleteById(Long id) {
-        if (issueRepository.getOne(id) != null) {
-            issueRepository.deleteById(id);
-            return true;
-        } else {
-            return false;
-        }
-
+    public IssueDto update(Long id, IssueDto project) {
+        return null;
     }
+
 }

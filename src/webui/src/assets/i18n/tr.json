@@ -1,4 +1,18 @@
 {
-  "Dashboard" : "Anasayfa",
-  "Project List": "Proje Listesi"
+  "Dashboard": "Anasayfa",
+  "Project List": "Proje Listesi",
+  "Project Name is required": "Proje Adı zorunlu",
+  "Project Name should be (min) 4 char": "Proje Adı en az 4 karakter olmalı",
+  "Project Code": "Proje Kodu",
+  "Project Name": "Proje Adı",
+  "New": "Yeni",
+  "New Issue": "Yeni Issue",
+  "Issue Description": "Issue Açıklama",
+  "Description is required": "Açıklama bilgisi gerekli!",
+  "Project is required": "Proje bilgisi gerekli!",
+  "Save": "Kaydet",
+  "Close": "Kapat",
+  "Project" : "Proje",
+  "Issue List": "Issue Listesi"
+
 }

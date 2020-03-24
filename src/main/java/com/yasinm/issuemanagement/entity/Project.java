@@ -1,31 +1,31 @@
 package com.yasinm.issuemanagement.entity;
 
-
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import javax.persistence.*;
 
-@Data
-@AllArgsConstructor
-@NoArgsConstructor
-@ToString
-@EqualsAndHashCode
 @Entity
-@Table(name = "PROJECT")
+@Table(name = "project")
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
 public class Project extends BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    @Column(name = "PROJECT_CODE", length = 1000, unique = true)
-    private String projectCode;
-
-    @Column(name = "PROJECT_NAME", length = 1000)
+    @Column(name = "project_name", length = 300)
     private String projectName;
 
-    @JoinColumn(name = "MANAGER_USER_ID")
+    @Column(name = "project_code", length = 30)
+    private String projectCode;
+
+    @JoinColumn(name = "manager_user_id")
     @ManyToOne(optional = true, fetch = FetchType.LAZY)
     private User manager;
-
 }

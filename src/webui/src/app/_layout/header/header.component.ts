@@ -1,5 +1,6 @@
 import {Component, OnInit} from "@angular/core";
 import {NavigationEnd, Router} from "@angular/router";
+import {AuthenticationService} from "../../security/authentication-service";
 
 @Component({
   selector: 'app-header',
@@ -13,7 +14,7 @@ export class HeaderComponent implements OnInit {
 
   activeUser = {};
 
-  constructor(public router: Router) {
+  constructor(public router: Router, private authenticationService: AuthenticationService) {
     this.router.events.subscribe(val => {
       if (
         val instanceof NavigationEnd &&
@@ -42,5 +43,9 @@ export class HeaderComponent implements OnInit {
     (cdom)?cdom.classList.toggle(this.collapseClass):'';
   }
 
+  logout(){
+    this.authenticationService.logout();
+    this.router.navigate(['/login']);
+  }
 
 }

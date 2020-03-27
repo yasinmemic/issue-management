@@ -47,7 +47,7 @@ public class UserController {
 
     @PostMapping
     @ApiOperation(value = "Create Operation", response = UserDto.class)
-    public ResponseEntity<UserDto> createProject(@Valid @RequestBody UserDto user) {
+    public ResponseEntity<UserDto> createUser(@Valid @RequestBody UserDto user) {
         return ResponseEntity.ok(userService.save(user));
     }
 }

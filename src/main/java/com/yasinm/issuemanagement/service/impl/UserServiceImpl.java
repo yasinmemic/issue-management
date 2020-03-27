@@ -1,5 +1,6 @@
 package com.yasinm.issuemanagement.service.impl;
 
+import com.yasinm.issuemanagement.dto.RegistrationRequest;
 import com.yasinm.issuemanagement.dto.UserDto;
 import com.yasinm.issuemanagement.entity.User;
 import com.yasinm.issuemanagement.repository.UserRepository;
@@ -9,7 +10,9 @@ import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Arrays;
 import java.util.List;
@@ -20,10 +23,12 @@ public class UserServiceImpl implements UserService {
 
     private final UserRepository userRepository;
     private final ModelMapper modelMapper;
+    private final BCryptPasswordEncoder encoder;
 
-    public UserServiceImpl(UserRepository userRepository, ModelMapper modelMapper) {
+    public UserServiceImpl(UserRepository userRepository, ModelMapper modelMapper,BCryptPasswordEncoder encoder) {
         this.userRepository = userRepository;
         this.modelMapper = modelMapper;
+        this.encoder = encoder;
     }
 
     @Override
@@ -60,4 +65,19 @@ public class UserServiceImpl implements UserService {
         return modelMapper.map(u, UserDto.class);
     }
 
+    @Transactional
+    public Boolean register(RegistrationRequest registrationRequest) {
+        try{
+            User user = new User();
+            user.setUsername(registrationRequest.getUsername());
+            user.setNameSurname(registrationRequest.getNameSurname());
+            user.setPassword(encoder.encode(registrationRequest.getPassword()));
+            user.setEmail(registrationRequest.getEmail());
+            userRepository.save(user);
+            return Boolean.TRUE;
+        }catch (Exception e){
+            log.error("Registration => ", e);
+            return Boolean.FALSE;
+        }
+    }
 }

@@ -34,11 +34,5 @@
     "username" : "yasinm",
     "nameSurname": "Yasin MEMIC",
     "email":"taner.temelt@gmail.com"
-  },
-  {
-    "_class": "com.temelt.issuemanagement.entity.User",
-    "username" : "jdoe",
-    "nameSurname": "John Doe",
-    "email":"jdoe@gmail.com"
   }
 ]

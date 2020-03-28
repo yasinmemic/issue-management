@@ -22,10 +22,10 @@ public class ProjectServiceImpl implements ProjectService {
     private final ModelMapper modelMapper;
     private final UserRepository userRepository;
 
-    public ProjectServiceImpl(ProjectRepository projectRepository,UserRepository userRepository, ModelMapper modelMapper) {
+    public ProjectServiceImpl(ProjectRepository projectRepository, UserRepository userRepository, ModelMapper modelMapper) {
         this.projectRepository = projectRepository;
         this.modelMapper = modelMapper;
-        this.userRepository= userRepository;
+        this.userRepository = userRepository;
     }
 
     @Override
@@ -64,9 +64,9 @@ public class ProjectServiceImpl implements ProjectService {
     @Override
     public TPage<ProjectDto> getAllPageable(Pageable pageable) {
         Page<Project> data = projectRepository.findAll(pageable);
-        TPage<ProjectDto> respnose = new TPage<ProjectDto>();
-        respnose.setStat(data, Arrays.asList(modelMapper.map(data.getContent(), ProjectDto[].class)));
-        return respnose;
+        TPage<ProjectDto> response = new TPage<ProjectDto>();
+        response.setStat(data, Arrays.asList(modelMapper.map(data.getContent(), ProjectDto[].class)));
+        return response;
     }
 
     @Override

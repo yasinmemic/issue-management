@@ -3,15 +3,30 @@
   <nav class="navbar navbar-light bg-white px-sm-4 ">
     <a class="navbar-brand py-2 d-md-none  m-0 material-icons toggle-sidebar" (click)="toggleSidebar()">menu</a>
     <ul class="navbar-nav flex-row ml-auto">
+
       <li class="nav-item dropdown" dropdown>
         <a href="javascript:void(0)" class="nav-link weight-400 dropdown-toggle" dropdownToggle>
-          <i class="fa fa-user"></i>
+          <img src="https://img.icons8.com/cute-clipart/30/000000/language.png"/>
         </a>
+
         <div *dropdownMenu class="dropdown-menu  dropdown-menu-right" role="menu">
-          <a class="dropdown-item">Account Settings</a>
-          <a class="dropdown-item" (click)="logout()">Logout</a>
+          <a class="dropdown-item" (click)="changeLanguage('tr')"><img src="https://img.icons8.com/color/30/000000/turkey.png"/> {{'Turkish' |translate}}</a>
+          <a class="dropdown-item" (click)="changeLanguage('en')"><img src="https://img.icons8.com/cute-clipart/30/000000/usa.png"/> {{'English'| translate}}</a>
+          <a class="dropdown-item" (click)="changeLanguage('de')"><img src="https://img.icons8.com/cute-clipart/30/000000/germany.png"/> {{'German'| translate}}</a>
         </div>
       </li>
+
+      <li class="nav-item dropdown" dropdown>
+        <a href="javascript:void(0)" class="nav-link weight-400 dropdown-toggle" dropdownToggle>
+          <img src="https://img.icons8.com/dusk/30/000000/user-group-man-woman.png"/>
+        </a>
+        <div *dropdownMenu class="dropdown-menu  dropdown-menu-right" role="menu">
+          <a class="dropdown-item"><img src="https://img.icons8.com/flat_round/30/000000/settings--v1.png"/> {{'Account Settings' |translate}}</a>
+          <a class="dropdown-item" (click)="logout()"><img src="https://img.icons8.com/officel/30/000000/shutdown.png"/> {{'Logout'| translate}}</a>
+        </div>
+      </li>
+
+
 
     </ul>
 

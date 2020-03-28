@@ -1,3 +1,51 @@
 <div class="content-wrapper">
-   Dashboard
+  <div class="row">
+    <div class="col-md-6">
+      <h3> {{ 'Issue List' | translate }} </h3>
+      <ngx-datatable
+        class="bootstrap"
+        [rows]="rows"
+        [columnMode]="'force'"
+        [headerHeight]="50"
+        [footerHeight]="50"
+        [rowHeight]="'auto'"
+        [externalPaging]="true"
+        [count]="page.totalElements"
+        [offset]="page.page"
+        [limit]="page.size"
+        (page)='setPage($event)'>
+        <ngx-datatable-column prop="id" name="No" sortable="false"></ngx-datatable-column>
+        <ngx-datatable-column prop="description" name="{{'Description' |translate}}"
+                              sortable="false"></ngx-datatable-column>
+        <ngx-datatable-column prop="date" name="{{'Issue Date' |translate}}" sortable="false"></ngx-datatable-column>
+        <ngx-datatable-column prop="issueStatus" name="{{'Status' |translate}}" sortable="false"></ngx-datatable-column>
+        <ngx-datatable-column prop="assignee.nameSurname" name="{{'Assignee' |translate}}"
+                              sortable="false"></ngx-datatable-column>
+        <ngx-datatable-column prop="project.projectName" name="{{'Project Name' |translate}}"
+                              sortable="false"></ngx-datatable-column>
+        <ngx-datatable-column prop="project.manager.nameSurname" name="{{'Project Manager' |translate}}"
+                              sortable="false"></ngx-datatable-column>
+      </ngx-datatable>
+    </div>
+
+
+    <div class="col-md-6">
+      <h3> {{ 'Project List' | translate }} </h3>
+      <ngx-datatable
+        class="bootstrap"
+        [rows]="rowsProject"
+        [columns]="cols"
+        [columnMode]="'force'"
+        [headerHeight]="50"
+        [footerHeight]="50"
+        [rowHeight]="'auto'"
+        [externalPaging]="true"
+        [count]="pageProject.totalElements"
+        [offset]="pageProject.page"
+        [limit]="pageProject.size"
+        (page)='setPageProject($event)'>
+      </ngx-datatable>
+    </div>
+
+  </div>
 </div>

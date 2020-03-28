@@ -1,6 +1,7 @@
 import {Component, OnInit} from "@angular/core";
 import {NavigationEnd, Router} from "@angular/router";
 import {AuthenticationService} from "../../security/authentication-service";
+import {TranslateService} from "@ngx-translate/core";
 
 @Component({
   selector: 'app-header',
@@ -14,7 +15,7 @@ export class HeaderComponent implements OnInit {
 
   activeUser = {};
 
-  constructor(public router: Router, private authenticationService: AuthenticationService) {
+  constructor(public router: Router, private authenticationService: AuthenticationService, private translateService: TranslateService) {
     this.router.events.subscribe(val => {
       if (
         val instanceof NavigationEnd &&
@@ -46,6 +47,10 @@ export class HeaderComponent implements OnInit {
   logout(){
     this.authenticationService.logout();
     this.router.navigate(['/login']);
+  }
+
+  changeLanguage(value){
+    this.translateService.use(value);
   }
 
 }

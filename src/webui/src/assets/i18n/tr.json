@@ -13,6 +13,21 @@
   "Save": "Kaydet",
   "Close": "Kapat",
   "Project" : "Proje",
-  "Issue List": "Issue Listesi"
-
+  "Issue List": "Issue Listesi",
+  "Logout": "Çıkış Yap",
+  "Account Settings": "Kullanıcı Ayarları",
+  "Username is required": "Kullanıcı adı gerekli",
+  "Password is required": "Parola gerekli",
+  "Register": "Kaydol",
+  "Description": "Açıklama",
+  "Issue Date": "Issue Tarihi",
+  "Assignee": "Atanan",
+  "Issue Status": "Issue Durumu",
+  "Project Manager": "Proje Yöneticisi",
+  "Details": "Detaylar",
+  "Actions": "Hareketler",
+  "Turkish": "Türkçe",
+  "English": "İngilizce",
+  "German": "Almanca",
+  "IssueManagement": "Issue Yönetim"
 }

@@ -47,7 +47,6 @@ export class ProjectComponent implements OnInit {
 
     this.userService.getAll().subscribe(res => {
       this.managerOptions = res;
-      console.log(res);
     });
 
   }

@@ -16,10 +16,6 @@ import java.util.List;
 @AllArgsConstructor
 public class User extends BaseEntity {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
-
     @Column(name = "uname", length = 100, unique = true)
     private String username;
 

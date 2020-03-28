@@ -6,7 +6,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
-import java.util.Date;
+import java.time.LocalDate;
 
 @Entity
 @Table(name = "issue")
@@ -16,10 +16,6 @@ import java.util.Date;
 @AllArgsConstructor
 public class Issue extends BaseEntity {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
-
     @Column(name = "description", length = 1000)
     private String description;
 
@@ -27,8 +23,7 @@ public class Issue extends BaseEntity {
     private String details;
 
     @Column(name = "date")
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date date;
+    private LocalDate date;
 
     @Column(name = "issue_status")
     @Enumerated(EnumType.STRING)

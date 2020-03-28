@@ -25,7 +25,7 @@ public class UserServiceImpl implements UserService {
     private final ModelMapper modelMapper;
     private final BCryptPasswordEncoder encoder;
 
-    public UserServiceImpl(UserRepository userRepository, ModelMapper modelMapper,BCryptPasswordEncoder encoder) {
+    public UserServiceImpl(UserRepository userRepository, ModelMapper modelMapper, BCryptPasswordEncoder encoder) {
         this.userRepository = userRepository;
         this.modelMapper = modelMapper;
         this.encoder = encoder;
@@ -48,9 +48,9 @@ public class UserServiceImpl implements UserService {
     @Override
     public TPage<UserDto> getAllPageable(Pageable pageable) {
         Page<User> data = userRepository.findAll(pageable);
-        TPage<UserDto> respnose = new TPage<UserDto>();
-        respnose.setStat(data, Arrays.asList(modelMapper.map(data.getContent(), UserDto[].class)));
-        return respnose;
+        TPage<UserDto> response = new TPage<UserDto>();
+        response.setStat(data, Arrays.asList(modelMapper.map(data.getContent(), UserDto[].class)));
+        return response;
     }
 
     public List<UserDto> getAll() {
@@ -67,7 +67,7 @@ public class UserServiceImpl implements UserService {
 
     @Transactional
     public Boolean register(RegistrationRequest registrationRequest) {
-        try{
+        try {
             User user = new User();
             user.setUsername(registrationRequest.getUsername());
             user.setNameSurname(registrationRequest.getNameSurname());
@@ -75,7 +75,7 @@ public class UserServiceImpl implements UserService {
             user.setEmail(registrationRequest.getEmail());
             userRepository.save(user);
             return Boolean.TRUE;
-        }catch (Exception e){
+        } catch (Exception e) {
             log.error("Registration => ", e);
             return Boolean.FALSE;
         }

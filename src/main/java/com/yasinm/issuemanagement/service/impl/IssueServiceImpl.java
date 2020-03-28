@@ -19,8 +19,8 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDate;
 import java.util.Arrays;
-import java.util.Date;
 import java.util.List;
 
 @Service
@@ -32,26 +32,21 @@ public class IssueServiceImpl implements IssueService {
     private final IssueHistoryService issueHistoryService;
     private final ModelMapper modelMapper;
 
-    public IssueServiceImpl(IssueRepository issueRepository,ProjectRepository projectRepository, UserRepository userRepository, IssueHistoryService issueHistoryService, ModelMapper modelMapper) {
+    public IssueServiceImpl(IssueRepository issueRepository, ProjectRepository projectRepository, UserRepository userRepository, IssueHistoryService issueHistoryService, ModelMapper modelMapper) {
         this.issueRepository = issueRepository;
         this.modelMapper = modelMapper;
         this.issueHistoryService = issueHistoryService;
-        this.userRepository =userRepository;
-        this.projectRepository=projectRepository;
+        this.userRepository = userRepository;
+        this.projectRepository = projectRepository;
     }
 
     @Override
     public IssueDto save(IssueDto issue) {
-        // Bussiness Logic
-        issue.setDate(new Date());
+        issue.setDate(LocalDate.now());
         issue.setIssueStatus(IssueStatus.OPEN);
-
-
         Issue issueEntity = modelMapper.map(issue, Issue.class);
-
         issueEntity.setProject(projectRepository.getOne(issue.getProjectId()));
         issueEntity = issueRepository.save(issueEntity);
-
         issue.setId(issueEntity.getId());
         return issue;
     }
@@ -60,7 +55,7 @@ public class IssueServiceImpl implements IssueService {
     public IssueDetailDto update(Long id, IssueUpdateDto issue) {
         Issue issueDb = issueRepository.getOne(id);
         User user = userRepository.getOne(issue.getAssignee_id());
-        issueHistoryService.addHistory(id,issueDb);
+        issueHistoryService.addHistory(id, issueDb);
 
         issueDb.setAssignee(user);
         issueDb.setDate(issue.getDate());
@@ -89,9 +84,9 @@ public class IssueServiceImpl implements IssueService {
     @Override
     public TPage<IssueDto> getAllPageable(Pageable pageable) {
         Page<Issue> data = issueRepository.findAll(pageable);
-        TPage<IssueDto> respnose = new TPage<IssueDto>();
-        respnose.setStat(data, Arrays.asList(modelMapper.map(data.getContent(), IssueDto[].class)));
-        return respnose;
+        TPage<IssueDto> response = new TPage<IssueDto>();
+        response.setStat(data, Arrays.asList(modelMapper.map(data.getContent(), IssueDto[].class)));
+        return response;
     }
 
     public List<IssueDto> getAll() {

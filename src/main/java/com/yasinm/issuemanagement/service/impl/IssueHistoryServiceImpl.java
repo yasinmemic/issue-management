@@ -48,9 +48,9 @@ public class IssueHistoryServiceImpl implements IssueHistoryService {
     @Override
     public TPage<IssueHistoryDto> getAllPageable(Pageable pageable) {
         Page<IssueHistory> data = issueHistoryRepository.findAll(pageable);
-        TPage<IssueHistoryDto> respnose = new TPage<IssueHistoryDto>();
-        respnose.setStat(data, Arrays.asList(modelMapper.map(data.getContent(), IssueHistoryDto[].class)));
-        return respnose;
+        TPage<IssueHistoryDto> response = new TPage<IssueHistoryDto>();
+        response.setStat(data, Arrays.asList(modelMapper.map(data.getContent(), IssueHistoryDto[].class)));
+        return response;
     }
 
     @Override
@@ -61,7 +61,7 @@ public class IssueHistoryServiceImpl implements IssueHistoryService {
 
     @Override
     public void addHistory(Long id, Issue issueDb) {
-        IssueHistory history=new IssueHistory();
+        IssueHistory history = new IssueHistory();
         history.setIssue(issueDb);
         history.setAssignee(issueDb.getAssignee());
         history.setDate(issueDb.getDate());

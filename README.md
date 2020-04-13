@@ -1,4 +1,7 @@
 # issue-management
+
+This project has improved with Spring Boot and Angular7.
+
 If you wanna run this project, you should apply the following.
 
  1- Go to webui directory and run this command 'npm install' 	in Terminal (Alt+F12 for IntelliJ Idea) 'npm install' will have created the node_modules folder in classpath.
